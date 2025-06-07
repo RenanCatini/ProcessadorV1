@@ -18,12 +18,6 @@ ProcessadorV1/
 - [Icarus Verilog](http://iverilog.icarus.com/)
 - [GTKWave](http://gtkwave.sourceforge.net/)
 
-Para instalar no Ubuntu:
-
-```bash
-sudo apt install iverilog gtkwave
-```
-
 ## Como usar
 
 ### Compilar e executar a simulação
