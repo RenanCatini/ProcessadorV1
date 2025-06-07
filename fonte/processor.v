@@ -4,6 +4,8 @@
 `include "extensor_sinal.v"
 `include "multiplexador.v"
 `include "ULA.v"
+`include "decodificador.v"
+`include "decode_reg.v"
 
 module processor (
     input clock,
