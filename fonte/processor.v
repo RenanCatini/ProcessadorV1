@@ -32,43 +32,35 @@ module processor (
 
     // Instanciar unidade de controle
     unidControle UDC (
-        .instrucao(iin), 
-        .resetn(resetn),
-        .step(step),
-        .OpSelect(OpSelect),
-        .reg_enable(reg_enable),
-        .A_enable(A_enable),
-        .R_enable(R_enable),
-        .clear(clear),
-        .selReg(selReg),
-        .bus_enable(bus_enable)
+        iin, resetn, step, OpSelect, reg_enable,
+        A_enable, R_enable, clear, selReg, bus_enable
     );
 
     // Instanciar registradores
-    registrador r0 (.clock(clock), .enable(reg_enable[7]), .entrada(mux_out), .saida(r0_out));
-    registrador r1 (.clock(clock), .enable(reg_enable[6]), .entrada(mux_out), .saida(r1_out));
-    registrador r2 (.clock(clock), .enable(reg_enable[5]), .entrada(mux_out), .saida(r2_out));
-    registrador r3 (.clock(clock), .enable(reg_enable[4]), .entrada(mux_out), .saida(r3_out));
-    registrador r4 (.clock(clock), .enable(reg_enable[3]), .entrada(mux_out), .saida(r4_out));
-    registrador r5 (.clock(clock), .enable(reg_enable[2]), .entrada(mux_out), .saida(r5_out));
-    registrador r6 (.clock(clock), .enable(reg_enable[1]), .entrada(mux_out), .saida(r6_out));
-    registrador r7 (.clock(clock), .enable(reg_enable[0]), .entrada(mux_out), .saida(r7_out));
+    registrador r0 (clock, reg_enable[7], mux_out, r0_out);
+    registrador r1 (clock, reg_enable[6], mux_out, r1_out);
+    registrador r2 (clock, reg_enable[5], mux_out, r2_out);
+    registrador r3 (clock, reg_enable[4], mux_out, r3_out);
+    registrador r4 (clock, reg_enable[3], mux_out, r4_out);
+    registrador r5 (clock, reg_enable[2], mux_out, r5_out);
+    registrador r6 (clock, reg_enable[1], mux_out, r6_out);
+    registrador r7 (clock, reg_enable[0], mux_out, r7_out);
 
-    registrador A (.clock(clock), .enable(A_enable), .entrada(mux_out), .saida(A_out));
-    registrador R (.clock(clock), .enable(R_enable), .entrada(ula_out), .saida(R_out));
+    registrador A (clock, A_enable, mux_out, A_out);
+    registrador R (clock, R_enable, ula_out, R_out);
 
     // Instanciar Extensor de sinal
-    extensor_sinal extensor (.instrucao(iin), .imediato(imm));
+    extensor_sinal extensor (iin, imm);
 
     // Instanciar Multiplexador
     multiplexador mux(
-        .r0(r0_out), .r1(r1_out), .r2(r2_out), .r3(r3_out),
-        .r4(r4_out), .r5(r5_out), .r6(r6_out), .r7(r7_out),
-        .R(R_out), .imm(imm), .sel(selReg), .saida(mux_out)
+        r0_out, r1_out, r2_out, r3_out,
+        r4_out, r5_out, r6_out, r7_out,
+        R_out, imm, selReg, mux_out
     );
 
     // Instanciar a ULA
-    ULA ula (.A(A_out), .B(mux_out), .OpSelect(OpSelect), .Resul(ula_out));
+    ULA ula (A_out, mux_out, OpSelect, ula_out);
 
     // Saida do barramento
     assign bus = (bus_enable) ? mux_out : 16'b0;

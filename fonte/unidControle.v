@@ -17,19 +17,11 @@ wire [2:0] RX;
 wire [2:0] RY;
 
 // Instanciação do decodificador
-decodificador decode (
-    .instrucao(instrucao),
-    .opcode(opcode),
-    .RX(RX),
-    .RY(RY)
-);
+decodificador decode ( instrucao, opcode, RX, RY);
 
 // Decodificar registrador
 wire [7:0] RX_decoded;
-decode_reg reg_decoder (
-    .reg_num(RX),
-    .output_reg(RX_decoded)
-);
+decode_reg reg_decoder (RX, RX_decoded);
 
 // Codigos para operações
 parameter ADD = 3'b000;
