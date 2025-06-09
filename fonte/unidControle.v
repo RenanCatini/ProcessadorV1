@@ -17,7 +17,7 @@ wire [2:0] RX;
 wire [2:0] RY;
 
 // Instanciação do decodificador
-decodificador decode ( instrucao, opcode, RX, RY);
+decodificador decode (instrucao, opcode, RX, RY);
 
 // Decodificar registrador
 wire [7:0] RX_decoded;
