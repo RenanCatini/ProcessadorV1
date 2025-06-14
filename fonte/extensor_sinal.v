@@ -4,7 +4,10 @@ module extensor_sinal (
 );
 
     always @(*) begin
-        imediato = {6'b000000, instrucao[9:0]};
+        if (instrucao[9])
+            imediato = {6'b111111, instrucao[9:0]};
+        else
+            imediato = {6'b000000, instrucao[9:0]};
     end
 
 endmodule
